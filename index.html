@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EliteDrive | Corporate Vehicle Management</title>
+    <meta name="description" content="Secure and modern vehicle booking system for corporate employees. Manage your fleet with ease.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="glass-panel" style="border-radius: 0; margin-bottom: 2rem; position: sticky; top: 0; z-index: 1000; padding: 1rem 2rem;">
+        <div class="container" style="display: flex; justify-content: space-between; align-items: center;">
+            <div class="logo">
+                <h2 class="title-gradient" style="margin: 0; font-size: 1.5rem;">EliteDrive</h2>
+            </div>
+            <div id="nav-actions" style="display: flex; gap: 1rem; align-items: center;">
+                <!-- Dynamically filled -->
+                <span id="user-display" style="color: var(--text-gray); font-size: 0.9rem;"></span>
+                <button id="logout-btn" class="btn btn-outline" style="padding: 0.4rem 1rem; font-size: 0.8rem; display: none;">Logout</button>
+            </div>
+        </div>
+    </nav>
+
+    <main class="container">
+        <!-- Auth Section -->
+        <section id="auth-section" class="animate-fade-in">
+            <div style="max-width: 450px; margin: 4rem auto;">
+                <div class="glass-panel" id="login-form-container">
+                    <h2 style="margin-bottom: 2rem; text-align: center;">Welcome Back</h2>
+                    <form id="login-form">
+                        <div class="form-group">
+                            <label>User ID</label>
+                            <input type="text" id="login-userid" class="form-input" placeholder="Enter your ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="login-password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Sign In</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-gray); font-size: 0.9rem;">
+                        New Employee? <a href="#" id="show-register" style="color: var(--text-white); text-decoration: none; font-weight: 600;">Create Account</a>
+                    </p>
+                </div>
+
+                <div class="glass-panel" id="register-form-container" style="display: none;">
+                    <h2 style="margin-bottom: 2rem; text-align: center;">Register Account</h2>
+                    <form id="register-form">
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" id="register-name" class="form-input" placeholder="John Doe" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Telephone Number</label>
+                            <input type="tel" id="register-phone" class="form-input" placeholder="077-1234567" required>
+                        </div>
+                        <div class="form-group">
+                            <label>User ID</label>
+                            <input type="text" id="register-userid" class="form-input" placeholder="EMP123" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" id="register-password" class="form-input" placeholder="••••••••" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Create Account</button>
+                    </form>
+                    <p style="text-align: center; margin-top: 1.5rem; color: var(--text-gray); font-size: 0.9rem;">
+                        Already have an account? <a href="#" id="show-login" style="color: var(--text-white); text-decoration: none; font-weight: 600;">Sign In</a>
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- User Dashboard Section -->
+        <section id="user-dashboard" style="display: none;" class="animate-fade-in">
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 2.5rem;">
+                <div>
+                    <h1 class="title-gradient" style="font-size: 2.5rem;">Vehicle Fleet</h1>
+                    <p style="color: var(--text-gray);">Select a vehicle to book for your corporate travel.</p>
+                </div>
+            </div>
+
+            <div id="vehicle-grid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 2rem; margin-bottom: 4rem;">
+                <!-- Vehicle cards will be injected here -->
+            </div>
+        </section>
+
+        <!-- Admin Dashboard Section -->
+        <section id="admin-dashboard" style="display: none;" class="animate-fade-in">
+            <div style="margin-bottom: 2.5rem;">
+                <h1 class="title-gradient" style="font-size: 2.5rem;">Admin Control Center</h1>
+                <p style="color: var(--text-gray);">Fleet management and booking insights.</p>
+            </div>
+
+            <!-- Stats Bar -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <p style="color: var(--text-gray); font-size: 0.8rem; margin-bottom: 0.5rem;">ACTIVE BOOKINGS</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <h2 id="stats-active" style="font-size: 2rem;">0</h2>
+                        <div style="flex-grow: 1; height: 8px; background: var(--accent-blue); border-radius: 4px; overflow: hidden;">
+                            <div id="stats-progress-active" style="height: 100%; width: 0%; background: var(--success); transition: width 0.5s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <p style="color: var(--text-gray); font-size: 0.8rem; margin-bottom: 0.5rem;">UNDER MAINTENANCE</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <h2 id="stats-maintenance" style="font-size: 2rem;">0</h2>
+                        <div style="flex-grow: 1; height: 8px; background: var(--accent-blue); border-radius: 4px; overflow: hidden;">
+                            <div id="stats-progress-maint" style="height: 100%; width: 0%; background: var(--warning); transition: width 0.5s ease;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="glass-panel" style="padding: 1.5rem;">
+                    <p style="color: var(--text-gray); font-size: 0.8rem; margin-bottom: 0.5rem;">FLEET READINESS</p>
+                    <div style="display: flex; align-items: center; gap: 1rem;">
+                        <h2 id="stats-readiness" style="font-size: 2rem;">100%</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+                <div class="glass-panel">
+                    <h3 style="margin-bottom: 1.5rem;">Booking Logs</h3>
+                    <div style="overflow-x: auto;">
+                        <table style="width: 100%; border-collapse: collapse; color: var(--text-gray);">
+                            <thead>
+                                <tr style="border-bottom: 1px solid var(--glass-border); text-align: left;">
+                                    <th style="padding: 1rem;">Vehicle</th>
+                                    <th style="padding: 1rem;">Employee</th>
+                                    <th style="padding: 1rem;">Period</th>
+                                    <th style="padding: 1rem;">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-booking-logs">
+                                <!-- Logs will be injected here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="glass-panel">
+                    <h3 style="margin-bottom: 1.5rem;">Fleet Status</h3>
+                    <div id="admin-fleet-list" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <!-- Fleet status items -->
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Booking Modal -->
+    <div id="booking-modal" style="display: none; position: fixed; inset: 0; background: rgba(10, 25, 47, 0.85); backdrop-filter: blur(5px); z-index: 2000; align-items: center; justify-content: center; padding: 1.5rem;">
+        <div class="glass-panel" style="max-width: 500px; width: 100%; position: relative;">
+            <button id="close-modal" style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: var(--text-gray); cursor: pointer; font-size: 1.5rem;">&times;</button>
+            <h2 id="modal-title" style="margin-bottom: 1.5rem;">Book Vehicle</h2>
+            <form id="booking-form">
+                <input type="hidden" id="booking-vehicle-id">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Pickup Date</label>
+                        <input type="date" id="booking-pickup-date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Pickup Time</label>
+                        <input type="time" id="booking-pickup-time" class="form-input" required>
+                    </div>
+                </div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                    <div class="form-group">
+                        <label>Return Date</label>
+                        <input type="date" id="booking-return-date" class="form-input" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Return Time</label>
+                        <input type="time" id="booking-return-time" class="form-input" required>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Confirm Booking</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>
