@@ -41,8 +41,8 @@ VALUES ('AD001', '1234', 'Fleet Administrator', 'SYSTEM', 'admin');
 
 -- Seed Default Vehicles
 INSERT IGNORE INTO vehicles (id, name, type, status, image) VALUES 
-('V001', 'Fleet Vehicle 1', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
-('V002', 'Fleet Vehicle 2', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
+('V001', 'NC BGK 1055', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
+('V002', 'NC DS 1478', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
 ('V003', 'Fleet Vehicle 3', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
 ('V004', 'Fleet Vehicle 4', 'Executive Sedan', 'Available', 'assets/vehicle.png'),
 ('V005', 'Fleet Vehicle 5', 'Luxury SUV', 'Available', 'assets/vehicle.png'),
@@ -52,3 +52,4 @@ INSERT IGNORE INTO vehicles (id, name, type, status, image) VALUES
 ('V009', 'Fleet Vehicle 9', 'Utility Van', 'Available', 'assets/vehicle.png'),
 ('V010', 'Fleet Vehicle 10', 'Utility Van', 'Available', 'assets/vehicle.png'),
 ('V011', 'Fleet Vehicle 11', 'Utility Van', 'Available', 'assets/vehicle.png');
+
